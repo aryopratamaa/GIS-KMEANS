@@ -28,7 +28,7 @@ include 'header.php';
 <div class="container">
   <ol class="breadcrumb" style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
     <li><span class="fa fa-map-o" style="font-size: 30px;"></span>&emsp;</li>
-    <li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Maps Kriminalitas</li>
+    <li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Maps Lakalantas</li>
     <li class="breadcrumb-item active" aria-current="page" style="padding-top:5px;">Kabupaten Batu Bara, Sumatera Utara</li>
 
     <li><form action="" method="get">
@@ -49,14 +49,14 @@ if(isset($_GET['cari'])){
 }
 
 
-  // Fungsi untuk mendapatkan warna berdasarkan nilai ket_kriminalitas
-function getColorByKetKriminalitas($ket_kriminalitas)
+  // Fungsi untuk mendapatkan warna berdasarkan nilai ket_lakalantas
+function getColorByKetlakalantas($ket_lakalantas)
 {
-  if ($ket_kriminalitas === 'Rawan') {
+  if ($ket_lakalantas === 'Rawan') {
     return '#00FF00'; // Hijau
-  } elseif ($ket_kriminalitas === 'Cukup Rawan') {
+  } elseif ($ket_lakalantas === 'Cukup Rawan') {
     return '#FFFF00'; // Kuning
-  } elseif ($ket_kriminalitas === 'Sangat Rawan') {
+  } elseif ($ket_lakalantas === 'Sangat Rawan') {
     return '#FF0000'; // Merah
   } else {
     return '#FFFFFF'; // Putih (gaya default jika tidak ada keterangan yang cocok)
@@ -67,7 +67,7 @@ function getColorByKetKriminalitas($ket_kriminalitas)
 $kecamatanData = [];
 while ($row = mysqli_fetch_assoc($result)) {
   $nama_kecamatan = $row['nama_kecamatan'];
-  $ket_kriminalitas = $row['ket_kriminalitas'];
+  $ket_lakalantas = $row['ket_lakalantas'];
 
   // Manually set the coordinates for each kecamatan based on its name
   $coordinatesData = [
@@ -377,8 +377,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 ];
 
 if (isset($coordinatesData[$nama_kecamatan])) {
-    // Ambil warna berdasarkan nilai ket_kriminalitas
-  $color = getColorByKetKriminalitas($ket_kriminalitas);
+    // Ambil warna berdasarkan nilai ket_lakalantas
+  $color = getColorByKetlakalantas($ket_lakalantas);
 
     // Tambahkan warna ke array $colorsData
   $kecamatanData[] = [
@@ -389,7 +389,7 @@ if (isset($coordinatesData[$nama_kecamatan])) {
     ],
     'properties' => [
       'nama_kecamatan' => $nama_kecamatan,
-      'ket_kriminalitas' => $ket_kriminalitas
+      'ket_lakalantas' => $ket_lakalantas
     ]
   ];
 }
@@ -439,13 +439,13 @@ mysqli_close($conn);
   // Menambahkan layer GeoJSON kecamatan ke peta dengan warna dinamis
   L.geoJSON(kecamatanData, {
     style: function (feature) {
-      var ketKriminalitas = feature.properties.ket_kriminalitas;
+      var ketlakalantas = feature.properties.ket_lakalantas;
       var color;
-      if (ketKriminalitas === 'Rawan') {
+      if (ketlakalantas === 'Rawan') {
         color = '#00FF00'; // Hijau
-      } else if (ketKriminalitas === 'Cukup Rawan') {
+      } else if (ketlakalantas === 'Cukup Rawan') {
         color = '#FFFF00'; // Kuning
-      } else if (ketKriminalitas === 'Sangat Rawan') {
+      } else if (ketlakalantas === 'Sangat Rawan') {
         color = '#FF0000'; // Merah
       } else {
         color = '#FFFFFF'; // Putih (gaya default jika tidak ada keterangan yang cocok)
@@ -462,7 +462,7 @@ mysqli_close($conn);
       // Menambahkan label nama kecamatan ke dalam layer
       if (feature.properties && feature.properties.nama_kecamatan) {
         var popupContent = '' + feature.properties.nama_kecamatan +
-        '<br>Kriminalitas : ' + feature.properties.ket_kriminalitas;
+        '<br>Lakalantas : ' + feature.properties.ket_lakalantas;
         layer.bindPopup(popupContent);
       }
     }
@@ -480,23 +480,23 @@ mysqli_close($conn);
           <tr>
             <th class="text-center">No</th>
             <th class="text-center">Kecamatan</th>
-            <th class="text-center">Kriminalitas</th>
+            <th class="text-center">lakalantas</th>
             <th class="text-center">Keterangan</th>
           </tr>
 
           <?php 
-          include "../assets/conn/config.php";
+          include "assets/conn/config.php";
           $brg=mysqli_query($conn,"SELECT * FROM tbl_kecamatan order by id_kecamatan asc ");
           $no=1;
           while($b=mysqli_fetch_array($brg)){
-            $query1 = mysqli_query($conn,"SELECT sum(nilai) as sub FROM tbl_kriminalitas WHERE id_kecamatan='".$b['id_kecamatan']."' ORDER BY id_kriteria");
+            $query1 = mysqli_query($conn,"SELECT sum(nilai) as sub FROM tbl_lakalantas WHERE id_kecamatan='".$b['id_kecamatan']."' ORDER BY id_kriteria");
             $result1 = mysqli_fetch_array($query1); 
             ?>
             <tr>
               <td class="text-center"><?php echo $no++ ?></td>
               <td><?php echo $b['nama_kecamatan'] ?></td>
               <td class="text-center"><?php echo $result1['sub'] ?></td>
-              <td class="text-center"><?php echo $b['ket_kriminalitas'] ?></td>
+              <td class="text-center"><?php echo $b['ket_lakalantas'] ?></td>
             </tr>   
             <?php 
           }

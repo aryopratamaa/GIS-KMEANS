@@ -485,7 +485,7 @@ mysqli_close($conn);
           </tr>
 
           <?php 
-          include "../assets/conn/config.php";
+          include "assets/conn/config.php";
           $brg=mysqli_query($conn,"SELECT * FROM tbl_kecamatan order by id_kecamatan asc ");
           $no=1;
           while($b=mysqli_fetch_array($brg)){
