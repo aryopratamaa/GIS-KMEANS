@@ -1,4 +1,3 @@
-
 <?php 
 include 'header.php';
 ?>
@@ -21,6 +20,25 @@ include 'header.php';
   <br>
   <br>
   <br>
+
+  <style>
+    #map-container {
+      position: relative;
+    }
+
+    #legend {
+      position: absolute;
+      top: 340px;
+      right: 130px;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-size: 12px;
+      z-index: 1000;
+    }
+  </style>
+
   <div class="container">
     <ol class="breadcrumb" style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
       <li><span class="fa fa-map-o" style="font-size: 30px;"></span>&emsp;</li>
@@ -48,6 +66,23 @@ include 'header.php';
     $result=mysqli_query($conn,"SELECT * FROM tbl_kecamatan order by id_kecamatan asc");
   }
   
+
+  $fixedColors = [
+    'Kecamatan Laut Tador' => '#6666c7',
+    'Kecamatan Medang Deras' => '#c7507a',
+    'Kecamatan Sei Suka' => '#877564',
+    'Kecamatan Air Putih' => '#ccec4d',
+    'Kecamatan Lima Puluh Pesisir' => '#82a9dc',
+    'Kecamatan Lima Puluh' => '#f7f265',
+    'Kecamatan Datuk Lima Puluh' => '#f74988',
+    'Kecamatan Talawi' => '#61e95c',
+    'Kecamatan Tanjung Tiram' => '#4bbba4',
+    'Kecamatan Datuk Tanah Datar' => '#5a528f',
+    'Kecamatan Sei Balai' => '#ef320c',
+    'Kecamatan Nibung Hangus' => '#618e8d',
+    // Add fixed colors for other kecamatan here
+  ];
+
 
 // Array untuk menyimpan data kecamatan
   $kecamatanData = [];
@@ -365,133 +400,149 @@ include 'header.php';
 ];
 
 if (isset($coordinatesData[$nama_kecamatan])) {
-    // Buat objek data kecamatan dan tambahkan ke array
+        // Check if the kecamatan name exists in the fixedColors array
+  $color = isset($fixedColors[$nama_kecamatan]) ? $fixedColors[$nama_kecamatan] : '#FFFFFF';
+
+        // Add the fixed color to the properties of the kecamatanData
   $kecamatanData[] = [
     'type' => 'Feature',
     'properties' => [
       'name' => $nama_kecamatan,
       'ket_kriminalitas' => $ket_kriminalitas,
       'ket_lakalantas' => $ket_lakalantas,
-      'color' => getRandomColor()
-    ],
-    'geometry' => [
-      'type' => 'Polygon',
-        'coordinates' => [$coordinatesData[$nama_kecamatan]] // Note: Wrap coordinates in another array
-      ]
-    ];
-  }
-}
-
-// Tutup koneksi ke database
-mysqli_close($conn);
-
-// Fungsi untuk mendapatkan warna acak
-function getRandomColor()
-{
-  $letters = '0123456789ABCDEF';
-  $color = '#';
-  for ($i = 0; $i < 6; $i++) {
-    $color .= $letters[rand(0, 15)];
-  }
-  return $color;
-}
-?>
-
-<div id="mapid"></div>
-
-<script type="text/javascript">
-  var mapOptions = {
-    center: [3.1617, 99.5265],
-    zoom: 10
-  };
-
-  var map = new L.map('mapid', mapOptions);
-
-  var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-  map.addLayer(layer);
-
-  // Data GeoJSON untuk Kecamatan
-  var kecamatanData = {
-    "type": "FeatureCollection",
-    "features": <?php echo json_encode($kecamatanData); ?>
-  };
-
-  // Menambahkan layer GeoJSON kecamatan ke peta dengan warna
-  L.geoJSON(kecamatanData, {
-    style: function (feature) {
-      return {
-        fillColor: feature.properties.color,
-        weight: 6,
-        opacity: 5,
-        color: 'white',
-        fillOpacity: 0.7
-      };
-    },
-    onEachFeature: function (feature, layer) {
-      // Menambahkan label nama kecamatan ke dalam layer
-      if (feature.properties && feature.properties.name) {
-       var popupContent = '' + feature.properties.name +
-       '<br><b>Kriminalitas: </b>' + feature.properties.ket_kriminalitas +
-       '<br><b>Lakalantas: </b>' + feature.properties.ket_lakalantas;
-       layer.bindPopup(popupContent);
-     }
-   }
- }).addTo(map);
-</script>
-<br>
+                'color' => $color // Use the fixed color instead of calling getRandomColor()
+              ],
+              'geometry' => [
+                'type' => 'Polygon',
+                'coordinates' => [$coordinatesData[$nama_kecamatan]] // Note: Wrap coordinates in another array
+              ]
+            ];
+          }
+        }
 
 
-
-<div class="container">
-  <ol class="breadcrumb" style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
-    <li><span class="fa fa-info" style="font-size: 30px;"></span>&emsp;</li>
-    <li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Data</li>
-    <li class="breadcrumb-item active" aria-current="page" style="padding-top:5px;">Tingkat Kriminalitas dan  Lakalantas</li>
-  </ol>
-</div>
+        // Tutup koneksi ke database
+        mysqli_close($conn);
+        ?>
 
 
-  <div class="container">
-    <div class="panel panel-container" style="padding: 50px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
-      <div class="bootstrap-table">
+        <div id="map-container">
+          <div id="legend">
+            <h5>Keterangan Warna Kecamatan:</h5>
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #6666c7;"></span>
+              Kecamatan Laut Tador
+            </div>
 
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <tr>
-              <th class="text-center">No</th>
-              <th class="text-center">Kecamatan</th>
-              <th class="text-center">Kriminalitas</th>
-              <th class="text-center">Lakalantas</th>
-            </tr>
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #c7507a;"></span>
+              Kecamatan Medang Deras
+            </div>
 
-            <?php 
-            include "../assets/conn/config.php";
-            $brg=mysqli_query($conn,"SELECT * FROM tbl_kecamatan order by id_kecamatan asc ");
-            $no=1;
-            while($b=mysqli_fetch_array($brg)){
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #877564;"></span>
+              Kecamatan Sei Suka
+            </div>
 
-              ?>
-              <tr>
-                <td class="text-center"><?php echo $no++ ?></td>
-                <td><?php echo $b['nama_kecamatan'] ?></td>
-                <td class="text-center"><?php echo $b['ket_kriminalitas'] ?></td>
-                <td class="text-center"><?php echo $b['ket_lakalantas'] ?></td>
-              </tr>   
-              <?php 
-            }
-            ?>
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #ccec4d;"></span>
+              Kecamatan Air Putih
+            </div>
 
-          </table>
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #82a9dc;"></span>
+              Kecamatan Lima Puluh Pesisir
+            </div>
+
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #f7f265;"></span>
+              Kecamatan Lima Puluh
+            </div>
+
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #f74988;"></span>
+              Kecamatan Datuk Lima Puluh
+            </div>
+
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #61e95c;"></span>
+              Kecamatan Talawi
+            </div>
+
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #4bbba4;"></span>
+              Kecamatan Tanjung Tiram
+            </div>
+
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #5a528f;"></span>
+              Kecamatan Datuk Tanah Datar
+            </div>
+
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #ef320c;"></span>
+              Kecamatan Sei Balai
+            </div>
+
+            <div>
+              <span style="display: inline-block; width: 12px; height: 12px; background-color: #618e8d;"></span>
+              Kecamatan Nibung Hangus
+            </div>
+            
+          </div>
         </div>
 
-      </div>
-    </div>
-  </div>
+        <div id="mapid"></div>
+
+        <script type="text/javascript">
+          var mapOptions = {
+            center: [3.1617, 99.5265],
+            zoom: 10
+          };
+
+          var map = new L.map('mapid', mapOptions);
+
+          var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+          map.addLayer(layer);
+
+  // Data GeoJSON untuk Kecamatan
+          var kecamatanData = {
+            "type": "FeatureCollection",
+            "features": <?php echo json_encode($kecamatanData); ?>
+          };
+
+  // Menambahkan layer GeoJSON kecamatan ke peta dengan warna
+          L.geoJSON(kecamatanData, {
+            style: function (feature) {
+              return {
+                fillColor: feature.properties.color,
+                weight: 6,
+                opacity: 5,
+                color: 'white',
+                fillOpacity: 0.7
+              };
+            },
+            onEachFeature: function (feature, layer) {
+      // Menambahkan label nama kecamatan ke dalam layer
+              if (feature.properties && feature.properties.name) {
+               var popupContent = '' + feature.properties.name +
+               '<br><b>Kriminalitas: </b>' + feature.properties.ket_kriminalitas +
+               '<br><b>Lakalantas: </b>' + feature.properties.ket_lakalantas;
+               layer.bindPopup(popupContent);
+             }
+           }
+         }).addTo(map);
+       </script>
+       <br>
 
 
-  <?php
-  include 'footer.php';
-  ?>
+
+
+
+
+       <?php
+       include 'footer.php';
+       ?>
 
 
 

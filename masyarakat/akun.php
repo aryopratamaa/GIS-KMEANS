@@ -19,7 +19,7 @@ include "header.php";
 
 <main id="main">
 	<section id="contact" class="contact">
-		<div class="container" data-aos="fade-up">
+		<div class="container">
 
 			<ol class="breadcrumb" style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
 				<li><span class="fa fa-gear" style="font-size: 30px;"></span>&emsp;</li>
@@ -60,7 +60,7 @@ include "header.php";
 
 								<tr>
 									<td>Password</td>
-									<td><input type="text" class="form-control" name="password" value="<?php echo $d['password'] ?>"></td>
+									<td><input type="password" class="form-control" name="password" value="<?php echo $d['password'] ?>"></td>
 								</tr>
 
 							</table>

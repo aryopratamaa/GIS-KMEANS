@@ -47,7 +47,7 @@ include "../assets/conn/config.php";
     border: 2px solid;
     margin: 0 auto 0 auto;
     height: 90%;
-    width: 80%;
+    width: 83%;
   }
   html, body {
     height: 100%;
@@ -71,16 +71,25 @@ include "../assets/conn/config.php";
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="index" style="color: #191970;">Home</a></li>
-          <li><a class="nav-link scrollto" href="pengguna">Pengguna</a></li>
-          <li><a class="nav-link scrollto" href="pengaduan">Pengaduan</a></li>
-          <li><a class="nav-link scrollto" href="kecamatan">Kecamatan</a></li>
 
-          <li class="dropdown"><a href="#"><span>Informasi</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <li class="dropdown"><a href="#"><span>Data Master</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="kriteria">Kriteria</a></li>
-              <li><a href="kriminalitas">Kejadian</a></li>
+             <li><a class="nav-link scrollto" href="pengguna">Pengguna</a></li>
+             <li><a class="nav-link scrollto" href="verifikasi">Verifikasi</a></li>
+             <li><a class="nav-link scrollto" href="kecamatan">Kecamatan</a></li>
+             <li><a href="kriteria">Kriteria</a></li>
+           </ul>
+
+
+
+           <li class="dropdown"><a href="#"><span>Informasi</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+
+              <li><a href="berita">Berita</a></li>
               <li><a href="kriminalitas">Kriminalitas</a></li>
               <li><a href="lakalantas">Lakalantas</a></li>
+              <li><a href="tkt-kriminalitas">Tingkat Kriminalitas</a></li>
+              <li><a href="tkt-lakalantas">Tingkat Lakalantas</a></li>
             </ul>
           </li>
 
@@ -94,14 +103,14 @@ include "../assets/conn/config.php";
 
           <li class="dropdown"><a href="#"><span>Laporan</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="laporan-kriminalitas">Kriminalitas</a></li>
-              <li><a href="laporan-lakalantas">Lakalantas</a></li>
+              <li><a href="laporan-kriminalitas" target="_blank">Kriminalitas</a></li>
+              <li><a href="laporan-lakalantas" target="_blank">Lakalantas</a></li>
             </ul>
           </li>
 
 
 
-          <li style="padding-left:100px;"></li>
+          <li style="padding-left:350px;"></li>
           <?php
           $username=$_SESSION['username'];
           $det=mysqli_query($conn,  "select * from tbl_akun where username='$username'");

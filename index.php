@@ -74,7 +74,7 @@ if (isset($_GET['aksi'])) {
 
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100 p-t-50 p-b-90" style="border: 1px solid; background-image: url('assets/img/bg-login.jpg'); background-position:center; box-shadow: 4px 4px 8px #888888;">
+			<div class="wrap-login100 p-t-50 p-b-90" style="border: 1px solid; background-image: url('assets/img/bg-login.png'); background-position:center; background-position-y: 20px; box-shadow: 4px 4px 8px #888888;">
 				
 
 				<?php 

@@ -47,7 +47,7 @@ include "../assets/conn/config.php";
     border: 2px solid;
     margin: 0 auto 0 auto;
     height: 90%;
-    width: 80%;
+    width: 83%;
   }
   html, body {
     height: 100%;
@@ -71,11 +71,13 @@ include "../assets/conn/config.php";
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="index" style="color: #191970;">Home</a></li>
+          <li><a class="nav-link scrollto" href="tkt-kriminalitas">Kriminalitas</a></li>
+          <li><a class="nav-link scrollto" href="tkt-lakalantas">Lakalantas</a></li>
           <li><a class="nav-link scrollto" href="pengaduan">Pengaduan</a></li>
           <li><a class="nav-link scrollto" href="riwayat">Riwayat</a></li>
 
 
-          <li style="padding-left:500px;"></li>
+          <li style="padding-left:400px;"></li>
           <?php
           $username=$_SESSION['username'];
           $det=mysqli_query($conn,  "select * from tbl_akun where username='$username'");

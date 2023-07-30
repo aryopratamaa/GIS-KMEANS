@@ -7,7 +7,7 @@ if (isset($_GET['aksi'])) {
 
 		<main id="main">
 			<section id="contact" class="contact">
-				<div class="container" data-aos="fade-up">
+				<div class="container">
 
 					<ol class="breadcrumb" style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
 						<li><span class="fa fa-address-book" style="font-size: 30px;"></span>&emsp;</li>
@@ -37,7 +37,7 @@ if (isset($_GET['aksi'])) {
 
 									<div class="form-group">
 										<label>Password</label>
-										<input name="password"  type="text" class="form-control" placeholder="password" autocomplete="off" required onsubmit="this.setCustomValidity('')">
+										<input name="password"  type="password" class="form-control" placeholder="password" autocomplete="off" required onsubmit="this.setCustomValidity('')">
 									</div>
 									<br>
 
@@ -71,7 +71,7 @@ if (isset($_GET['aksi'])) {
 
 		<main id="main">
 			<section id="contact" class="contact">
-				<div class="container" data-aos="fade-up">
+				<div class="container">
 
 					<ol class="breadcrumb" style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
 						<li><span class="fa fa-address-book" style="font-size: 30px;"></span>&emsp;</li>
@@ -104,7 +104,7 @@ if (isset($_GET['aksi'])) {
 
 										<tr>
 											<td>Password</td>
-											<td><input name="password" type="text" value="<?php echo $d['password'] ?>" class="form-control"  autocomplete="off" required onsubmit="this.setCustomValidity('')"></td>
+											<td><input name="password" type="password" value="<?php echo $d['password'] ?>" class="form-control"  autocomplete="off" required onsubmit="this.setCustomValidity('')"></td>
 										</tr>
 
 
