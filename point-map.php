@@ -9,7 +9,7 @@ include 'header.php';
     <div class="container">
       <div class="row gy-4 text-center">
         <center>
-          <img src="../assets/img/logo.png" style="width:150px;"><p>
+          <img src="assets/img/logo.png" style="width:150px;"><p>
           </center>
           <h1>POLRES BATU BARA</h1>
           <h2>SISTEM INFORMASI GEOGRAFIS PEMETAAN DAERAH RAWAN KRIMINALITAS DAN MASALAH LALU LINTAS MENGGUNAKAN METODE K-MEANS CLUSTERING</h2>
@@ -42,9 +42,9 @@ include 'header.php';
   // Query untuk mengambil data kecamatan dari database
   if(isset($_GET['cari'])){
     $cari=$_GET['cari'];
-    $result=mysqli_query($conn,"SELECT * FROM tbl_kecamatan where nama_kecamatan like '$cari'");
+    $result=mysqli_query($conn,"SELECT * FROM tbl_titiklaka where nama_kecamatan like '$cari'");
   }else{
-    $result=mysqli_query($conn,"SELECT * FROM tbl_kecamatan order by id_kecamatan asc");
+    $result=mysqli_query($conn,"SELECT * FROM tbl_titiklaka order by id_kecamatan asc");
   }
 // Array untuk menyimpan data kecamatan
   $kecamatan = [];
