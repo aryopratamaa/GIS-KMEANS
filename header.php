@@ -38,7 +38,22 @@ include "assets/conn/config.php";
 
   <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
   <script src="assets/leaflet/leaflet.js"></script>
+  
+  <style>
+    /* Maps */
+    .over {
+      text-decoration: overline;
+    }
 
+    #mapid {
+      border-radius: 5px;
+      box-shadow: 2px 2px 4px #888888;
+      border: 0px solid;
+      margin: 0 auto 0 auto;
+      height: 70%;
+      width: 68%;
+    }
+  </style>
 
 </head>
 

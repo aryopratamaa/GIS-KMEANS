@@ -146,25 +146,12 @@ include 'header.php'
         </div>
     </section><!-- End Berita Section -->
 
-    <!-- ======= Peta Section ======= -->
-    <section id="Peta" class="Peta">
-        <div class="container">
-
-            <div class="section-title" data-aos="fade-up">
-                <h2>Peta Daerah</h2>
-                <p>Kabupaten Batu Bara</p>
-            </div>
-        </div>
-    </section><!-- End Peta Section -->
-
-
-
 </main>
 
 
 
 <style>
-    #map-container {
+    #map-box {
         position: relative;
     }
 
@@ -180,19 +167,7 @@ include 'header.php'
         z-index: 1000;
     }
 
-    /* Maps */
-    .over {
-        text-decoration: overline;
-    }
 
-    #mapid {
-        border-radius: 5px;
-        box-shadow: 2px 2px 4px #888888;
-        border: 0px solid;
-        margin: 0 auto 0 auto;
-        height: 70%;
-        width: 68%;
-    }
 
     html,
     body {
@@ -598,8 +573,15 @@ while ($row = mysqli_fetch_assoc($result)) {
 mysqli_close($conn);
 ?>
 
+<br><br>
+    <div class="container">
 
-<div id="map-container">
+            <div class="section-title">
+                <h2>Peta Daerah</h2>
+                <p>Kabupaten Batu Bara</p>
+            </div>
+        </div>
+<div id="map-box">
     <div id="legend">
         <h5>Keterangan Warna Kecamatan:</h5>
         <div>
