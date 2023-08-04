@@ -420,11 +420,17 @@ h6 {
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
+#hero-navbar {
+  width: 100%;
+  position: relative;
+  padding: 85px 0 0 0;
+  background: rgba(2, 5, 161, 0.91);
+}
+
 #hero {
   width: 100%;
-  background: url("../img/hero-bg.jpg");
   position: relative;
-  padding: 120px 0 0 0;
+  padding: 150px 0 0 0;
 }
 
 #hero:before {
