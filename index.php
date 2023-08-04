@@ -572,13 +572,13 @@ mysqli_close($conn);
 ?>
 
 <br><br>
-    <div class="container">
+<div class="container">
 
-            <div class="section-title">
-                <h2>Peta Daerah</h2>
-                <p>Kabupaten Batu Bara</p>
-            </div>
-        </div>
+    <div class="section-title">
+        <h2>Peta Daerah</h2>
+        <p>Kabupaten Batu Bara</p>
+    </div>
+</div>
 <div id="map-box">
     <div id="legend">
         <h5>Keterangan Warna Kecamatan:</h5>
