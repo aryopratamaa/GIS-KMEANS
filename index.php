@@ -558,8 +558,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             'type' => 'Feature',
             'properties' => [
                 'name' => $nama_kecamatan,
-                'ket_kriminalitas' => $ket_kriminalitas,
-                'ket_lakalantas' => $ket_lakalantas,
                 'color' => $color // Use the fixed color instead of calling getRandomColor()
             ],
             'geometry' => [
@@ -680,9 +678,9 @@ mysqli_close($conn);
         onEachFeature: function (feature, layer) {
             // Menambahkan label nama kecamatan ke dalam layer
             if (feature.properties && feature.properties.name) {
-                var popupContent = '' + feature.properties.name +
-                    '<br><b>Kriminalitas: </b>' + feature.properties.ket_kriminalitas +
-                    '<br><b>Lakalantas: </b>' + feature.properties.ket_lakalantas;
+                var popupContent = '' + feature.properties.name; //+
+                //'<br><b>Kriminalitas: </b>' + feature.properties.ket_kriminalitas +
+                //'<br><b>Lakalantas: </b>' + feature.properties.ket_lakalantas;
                 layer.bindPopup(popupContent);
             }
         }
