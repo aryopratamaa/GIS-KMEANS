@@ -18,49 +18,13 @@ include 'header.php'
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-size: 12px;
+        font-size: 14px;
         z-index: 1000;
     }
-
-
-
     html,
     body {
         height: 100%;
         font-family: 'Roboto', sans-serif;
-    }
-
-    /* Ganti ukuran gambar sesuai kebutuhan */
-    .carousel-inner img {
-        width: 290px;
-        height: 200px;
-        box-shadow: 2px 2px 4px #888888;
-        border-radius: 5px;
-        object-fit: cover;
-        /* Untuk memastikan gambar tetap proporsional */
-    }
-
-    /* Ganti lebar carousel agar muat lebih dari satu gambar */
-    .carousel-inner {
-        display: flex;
-        flex-wrap: nowrap;
-    }
-
-    /* Ganti lebar tombol navigasi */
-    .carousel-control-prev,
-    .carousel-control-next {
-        width: 5%;
-    }
-
-    /* Atur jarak antara gambar-gambar dalam satu slide */
-    .carousel-inner .carousel-item {
-        margin-right: 5px;
-        /* Atur spasi antar gambar */
-    }
-
-    /* Hapus margin pada item terakhir agar tidak ada jarak ekstra */
-    .carousel-inner .carousel-item:last-child {
-        margin-right: 0;
     }
 </style>
 
@@ -423,84 +387,161 @@ while ($row = mysqli_fetch_assoc($result)) {
 mysqli_close($conn);
 ?>
 
-<br>
+
+    <br><br>
+    <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+            <h2>Peta Daerah Batu Bara</h2>
+            <p>Rawan Kriminalitas</p>
+        </div>
+    </div>
+
+    <div id="map-box">
+        <div id="legend" data-aos="fade-up">
+            <h5>Keterangan Warna Kecamatan:</h5>
+            <div>
+                <span style="display: inline-block; width: 12px; height: 12px; background-color: #00FF00;"></span>
+                Kecamatan Rawan (Hijau)
+            </div>
+            <div>
+                <span style="display: inline-block; width: 12px; height: 12px; background-color: #FFFF00;"></span>
+                Kecamatan Cukup Rawan (Kuning)
+            </div>
+            <div>
+                <span style="display: inline-block; width: 12px; height: 12px; background-color: #FF0000;"></span>
+                Kecamatan Sangat Rawan (Merah)
+            </div>
+        </div>
+    </div>
+
+    <div id="mapid" data-aos="fade-up"></div>
+
+    <script type="text/javascript">
+        var mapOptions = {
+            center: [3.2345, 99.5265],
+            zoom: 11
+        };
+
+        var map = new L.map('mapid', mapOptions);
+
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        map.addLayer(layer);
+
+        // Data GeoJSON untuk Kecamatan
+        var kecamatanData = {
+            "type": "FeatureCollection",
+            "features": <?php echo json_encode($kecamatanData); ?>
+        };
+
+        // Menambahkan layer GeoJSON kecamatan ke peta dengan warna dinamis
+        L.geoJSON(kecamatanData, {
+            style: function (feature) {
+                var ketKriminalitas = feature.properties.ket_kriminalitas;
+                var color;
+                if (ketKriminalitas === 'Rawan') {
+                    color = '#00FF00'; // Hijau
+                } else if (ketKriminalitas === 'Cukup Rawan') {
+                    color = '#FFFF00'; // Kuning
+                } else if (ketKriminalitas === 'Sangat Rawan') {
+                    color = '#FF0000'; // Merah
+                } else {
+                    color = '#FFFFFF'; // Putih (gaya default jika tidak ada keterangan yang cocok)
+                }
+                return {
+                    fillColor: color,
+                    weight: 6,
+                    opacity: 5,
+                    color: 'white',
+                    fillOpacity: 0.7
+                };
+            },
+            onEachFeature: function (feature, layer) {
+                // Menambahkan label nama kecamatan ke dalam layer
+                if (feature.properties && feature.properties.nama_kecamatan) {
+                    var popupContent = '' + feature.properties.nama_kecamatan +
+                        '<br>Kriminalitas : ' + feature.properties.ket_kriminalitas;
+                    layer.bindPopup(popupContent);
+                }
+            }
+        }).addTo(map);
+    </script>
+
+
+<br><br>
 <div class="container">
 
-    <div class="section-title">
-        <h2>Peta Daerah Batu Bara</h2>
-        <p>Rawan Kriminalitas</p>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Tabel Data Kecamatan</h2>
+        <p>Daerah Rawan Kriminalitas</p>
     </div>
 </div>
 
-<div id="map-box">
-    <div id="legend">
-        <h5>Keterangan Warna Kecamatan:</h5>
-        <div>
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #00FF00;"></span>
-            Kecamatan Rawan (Hijau)
-        </div>
-        <div>
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #FFFF00;"></span>
-            Kecamatan Cukup Rawan (Kuning)
-        </div>
-        <div>
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #FF0000;"></span>
-            Kecamatan Sangat Rawan (Merah)
-        </div>
-    </div>
-</div>
+<div class="container" data-aos="fade-up">
+  <div class="panel panel-container"
+    style="padding: 50px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
+    <div class="bootstrap-table">
 
-<div id="mapid"></div>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr>
+            <th class="text-center">No</th>
+            <th class="text-center">Kecamatan</th>
+            <th colspan="3" class="text-center">Jarak Cluster</th>
+            <th class="text-center">Cluster</th>
+            <th class="text-center">Keterangan</th>
+          </tr>
 
-<script type="text/javascript">
-    var mapOptions = {
-        center: [3.2345, 99.5265],
-        zoom: 11
-    };
+          <?php
+          include "assets/conn/config.php";
+          $brg = mysqli_query($conn, "SELECT * FROM tbl_kecamatan order by id_kecamatan asc ");
+          $no = 1;
+          while ($b = mysqli_fetch_array($brg)) {
 
-    var map = new L.map('mapid', mapOptions);
+            echo "<tr>";
 
-    var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-    map.addLayer(layer);
+            $query = mysqli_query($conn, "SELECT * FROM tbl_kriminalitas WHERE id_kecamatan='" . $b['id_kecamatan'] . "'");
+            $result = mysqli_fetch_array($query);
 
-    // Data GeoJSON untuk Kecamatan
-    var kecamatanData = {
-        "type": "FeatureCollection",
-        "features": <?php echo json_encode($kecamatanData); ?>
-    };
+            if (empty($result['id_kecamatan'])) {
 
-    // Menambahkan layer GeoJSON kecamatan ke peta dengan warna dinamis
-    L.geoJSON(kecamatanData, {
-        style: function (feature) {
-            var ketKriminalitas = feature.properties.ket_kriminalitas;
-            var color;
-            if (ketKriminalitas === 'Rawan') {
-                color = '#00FF00'; // Hijau
-            } else if (ketKriminalitas === 'Cukup Rawan') {
-                color = '#FFFF00'; // Kuning
-            } else if (ketKriminalitas === 'Sangat Rawan') {
-                color = '#FF0000'; // Merah
             } else {
-                color = '#FFFFFF'; // Putih (gaya default jika tidak ada keterangan yang cocok)
-            }
-            return {
-                fillColor: color,
-                weight: 6,
-                opacity: 5,
-                color: 'white',
-                fillOpacity: 0.7
-            };
-        },
-        onEachFeature: function (feature, layer) {
-            // Menambahkan label nama kecamatan ke dalam layer
-            if (feature.properties && feature.properties.nama_kecamatan) {
-                var popupContent = '' + feature.properties.nama_kecamatan +
-                    '<br>Kriminalitas : ' + feature.properties.ket_kriminalitas;
-                layer.bindPopup(popupContent);
-            }
-        }
-    }).addTo(map);
-</script>
+
+              ?>
+              <td class="text-center">
+                <?php echo $no++ ?>
+              </td>
+              <td>
+                <?php echo $b['nama_kecamatan'] ?>
+              </td>
+              <td class="text-center">
+                <?php echo number_format($b['c1'], 3) ?>
+              </td>
+              <td class="text-center">
+                <?php echo number_format($b['c2'], 3) ?>
+              </td>
+              <td class="text-center">
+                <?php echo number_format($b['c3'], 3) ?>
+              </td>
+              <td class="text-center">
+                <?php echo $b['cluster_kriminalitas'] ?>
+              </td>
+              <td class="text-center">
+                <?php echo $b['ket_kriminalitas'] ?>
+              </td>
+
+            <?php } ?>
+            </tr>
+            <?php
+          }
+          ?>
+
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <?php
 include 'footer.php';

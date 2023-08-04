@@ -163,7 +163,7 @@ include 'header.php'
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-size: 12px;
+        font-size: 14px;
         z-index: 1000;
     }
 
@@ -574,13 +574,13 @@ mysqli_close($conn);
 <br><br>
 <div class="container">
 
-    <div class="section-title">
+    <div class="section-title" data-aos="fade-up">
         <h2>Peta Daerah</h2>
         <p>Kabupaten Batu Bara</p>
     </div>
 </div>
 <div id="map-box">
-    <div id="legend">
+    <div id="legend" data-aos="fade-up">
         <h5>Keterangan Warna Kecamatan:</h5>
         <div>
             <span style="display: inline-block; width: 12px; height: 12px; background-color: #6666c7;"></span>
@@ -645,7 +645,7 @@ mysqli_close($conn);
     </div>
 </div>
 
-<div id="mapid"></div>
+<div id="mapid" data-aos="fade-up"></div>
 
 <script type="text/javascript">
     var mapOptions = {

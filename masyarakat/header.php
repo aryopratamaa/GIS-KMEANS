@@ -23,7 +23,7 @@ include "../assets/conn/config.php";
 
   <!-- Google Fonts -->
   <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
@@ -33,14 +33,15 @@ include "../assets/conn/config.php";
   <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../assets/css-login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+  <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
   <link rel="stylesheet" href="../assets/leaflet/leaflet.css" />
   <script src="../assets/leaflet/leaflet.js"></script>
 
-
-  <style type="text/css">
+  <style>
+    /* Maps */
     .over {
       text-decoration: overline;
     }
@@ -53,38 +54,48 @@ include "../assets/conn/config.php";
       height: 70%;
       width: 68%;
     }
-
-    html,
-    body {
-      height: 100%;
-      font-family: 'Roboto', sans-serif;
-    }
   </style>
+
 </head>
 
-<body style="background-color:#D3D3D3;">
+<body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center">
+
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
     <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="index"><span>POLRES</span></a></h1>
+      </div>
+
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="index" style="color: #191970;">Home</a></li>
+          <li><a class="nav-link scrollto" href="index">Home</a></li>
           <li><a class="nav-link scrollto" href="tkt-kriminalitas">Kriminalitas</a></li>
           <li><a class="nav-link scrollto" href="tkt-lakalantas">Lakalantas</a></li>
-          <li><a class="nav-link scrollto" href="pengaduan">Pengaduan</a></li>
-          <li><a class="nav-link scrollto" href="riwayat">Riwayat</a></li>
+          <li class="dropdown"><a href="#"><span>Pengaduan</span> <i
+                class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="pgd-kriminalitas">Pengaduan Kriminalitas</a></li>
+              <li><a href="pgd-lakalantas">Pengaduan Lakalantas</a></li>
+            </ul>
+          </li>
 
-
-          <li style="padding-left:600px;"></li>
+          <li class="dropdown"><a href="#"><span>Riwayat</span> <i
+                class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="rwy-kriminalitas">Riwayat Kriminalitas</a></li>
+              <li><a href="rwy-lakalantas">Riwayat Lakalantas</a></li>
+            </ul>
+          </li>
           <?php
           $username = $_SESSION['username'];
           $det = mysqli_query($conn, "select * from tbl_akun where username='$username'");
           $d = mysqli_fetch_array($det);
           ?>
-          <li class="dropdown"><a href="#" class="getstarted scrollto"
-              style="background-color: #191970; box-shadow: 2px 2px 10px #888888; padding:13px;"><span
-                class="fa fa-user"></span> &emsp;Hy,
+          <li class="dropdown"><a href="#" class="getstarted"><span
+                class="fa fa-user"></span> Hy,
               <?php echo $d['nama_lengkap'] ?> <i class="bi bi-chevron-down dropdown-indicator"></i>
             </a>
             <ul>
@@ -92,7 +103,9 @@ include "../assets/conn/config.php";
               <li><a href="logout">Logout</a></li>
             </ul>
           </li>
-        </ul>
+
+
+
 
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -100,6 +113,9 @@ include "../assets/conn/config.php";
 
     </div>
   </header><!-- End Header -->
+
+
+
 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i

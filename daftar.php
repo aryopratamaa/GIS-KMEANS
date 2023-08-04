@@ -1,14 +1,14 @@
 <?php
 // akssi login 
 if (isset($_GET['aksi'])) {
-	if ($_GET['aksi']=="daftar") {
+	if ($_GET['aksi'] == "daftar") {
 		include 'assets/conn/config.php';
-		$nama_lengkap=$_POST['nama_lengkap'];
-		$username=$_POST['username'];
-		$password=$_POST['password'];
-		
-		mysqli_query($conn,"insert into tbl_akun(nama_lengkap,username,password,level) values('$nama_lengkap','$username','$password','Masyarakat')");
-		header("location:index?pesan=berhasil");
+		$nama_lengkap = $_POST['nama_lengkap'];
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+
+		mysqli_query($conn, "insert into tbl_akun(nama_lengkap,username,password,level) values('$nama_lengkap','$username','$password','Masyarakat')");
+		header("location:login");
 
 	}
 
@@ -18,11 +18,12 @@ if (isset($_GET['aksi'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>POLRES BATU BARA</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="assets/img/icon-maps.png"/>
+	<link rel="icon" type="image/png" href="assets/img/icon-maps.png" />
 	<link rel="stylesheet" type="text/css" href="assets/css-login/vendor/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css-login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css-login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
@@ -34,38 +35,43 @@ if (isset($_GET['aksi'])) {
 	<link rel="stylesheet" type="text/css" href="assets/css-login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="assets/css-login/css/main.css">
 </head>
+
 <body>
 
 
 
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100 p-t-50 p-b-90" style="border: 1px solid; background-image: url('assets/img/bg-daftar.png'); background-position:center; box-shadow: 4px 4px 8px #888888;">
-				
+			<div class="wrap-login100 p-t-50 p-b-90"
+				style="border: 0px solid; background-position:center; box-shadow: 4px 4px 8px #888888;">
+				<center>
+					<h3>Buat Akun</h3>
+				</center>
 
-				<?php 
-				if(isset($_GET['pesan'])){
-					if($_GET['pesan'] == "gagal"){
+				<?php
+				if (isset($_GET['pesan'])) {
+					if ($_GET['pesan'] == "gagal") {
 						echo "<div style='margin-top:5px;' class='alert alert-primary' role='alert'><center><span class='fa fa-times'>&nbsp; Login gagal, periksa username dan password !!!</span> </center></div>";
 					}
 				}
 				?>
 
-				<form class="login100-form validate-form flex-sb flex-w" action="daftar?aksi=daftar" method="post" enctype="multipart/form-data" style=" padding: 20px;">
-					
+				<form class="login100-form validate-form flex-sb flex-w" action="daftar?aksi=daftar" method="post"
+					enctype="multipart/form-data" style=" padding: 20px;">
 
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Nama lengkap is required">
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Nama lengkap is required">
 						<input class="input100" type="text" name="nama_lengkap" placeholder="Nama Lengkap">
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
 						<input class="input100" type="text" name="username" placeholder="Username">
 						<span class="focus-input100"></span>
 					</div>
 
 
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
 						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
@@ -79,7 +85,7 @@ if (isset($_GET['aksi'])) {
 				</form>
 				<hr>
 				<center>
-					<a href="index">-- Back to Login --</a>
+					Sudah memiliki akun?<a href="login">&nbsp;&nbsp;<u>Masuk!</u></a>
 				</center>
 			</div>
 		</div>
@@ -98,4 +104,5 @@ if (isset($_GET['aksi'])) {
 	<script src="assets/css-login/js/main.js"></script>
 
 </body>
+
 </html>
