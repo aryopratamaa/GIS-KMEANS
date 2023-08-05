@@ -11,10 +11,11 @@ if (isset($_GET['aksi'])) {
 		header("location:akun?pesan=berhasil");
 	}
 }
-
 include "header.php";
 ?>
 
+<section id="hero-navbar">
+</section>
 
 
 <main id="main">
@@ -80,9 +81,7 @@ include "header.php";
 	</section>
 </main>
 
-<br>
-<br>
-<br>
+<br><br><br><br>
 
 <?php 
 include 'footer.php';

@@ -4,14 +4,14 @@ if (isset($_GET['aksi'])) {
 	if ($_GET['aksi']=="verifikasi") {
 		$id_pengaduan=$_POST['id_pengaduan'];
 		$status=$_POST['status'];
-		mysqli_query($conn,"update tbl_pengaduan set status='$status' where id_pengaduan='$id_pengaduan'");
+		mysqli_query($conn,"update tbl_pengaduan_lakalantas set status='$status' where id_pengaduan='$id_pengaduan'");
 
 		//bikin keputusan berdasarkan status
 		if ($status=='Valid') {
 		//panggil data pengaduan
-			$data = mysqli_query($conn,"SELECT * FROM tbl_pengaduan WHERE id_pengaduan='$id_pengaduan'");
+			$data = mysqli_query($conn,"SELECT * FROM tbl_pengaduan_lakalantas WHERE id_pengaduan='$id_pengaduan'");
 			$a = mysqli_fetch_array($data);
-			$id_kecamatan = $a['id_kecamatan'];
+			$id_lalulintas = $a['id_lalulintas'];
 			$id_kriteria = $a['id_kriteria'];
 
 			//panggil data kriteria untuk menentukan lakalantasa atau kriminalitas
@@ -20,32 +20,18 @@ if (isset($_GET['aksi'])) {
 			$keterangan = $b['keterangan'];
 
 			//buat penentuan
-			if ($keterangan=='Kriminalitas') {
-			//panggil data kriminalitas
-				$query1 = mysqli_query($conn,"SELECT * FROM tbl_kriminalitas WHERE id_kriteria='$id_kriteria' AND id_kecamatan='$id_kecamatan'");
-				$c = mysqli_fetch_array($query1);
-				$row_kriminalitas = mysqli_num_rows($query1);
-				$n_kriminalitas = $c['nilai']+1;
-
-				//cek row kriminalitas
-				if ($row_kriminalitas <= 0) {
-					mysqli_query($conn,"insert into tbl_kriminalitas(id_kecamatan,id_kriteria,nilai) values('$id_kecamatan','$id_kriteria','$n_kriminalitas')");
-				}else{
-					mysqli_query($conn,"UPDATE tbl_kriminalitas set nilai='$n_kriminalitas' WHERE id_kriteria='$id_kriteria' AND id_kecamatan='$id_kecamatan'");
-				}//keputusan cek row
-
-			}else{
+			if ($keterangan=='Lakalantas') {
 			//panggil data lakalantas
-				$query2 = mysqli_query($conn,"SELECT * FROM tbl_lakalantas WHERE id_kriteria='$id_kriteria' AND id_kecamatan='$id_kecamatan'");
+				$query2 = mysqli_query($conn,"SELECT * FROM tbl_lakalantas WHERE id_kriteria='$id_kriteria' AND id_lalulintas='$id_lalulintas'");
 				$d = mysqli_fetch_array($query2);
 				$row_lakalantas = mysqli_num_rows($query2);
-				$n_lakalantas = $c['nilai']+1;
+				$n_lakalantas = $d['nilai']+1;
 
 				//cek row kriminalitas
 				if ($row_lakalantas <= 0) {
-					mysqli_query($conn,"insert into tbl_lakalantas(id_kecamatan,id_kriteria,nilai) values('$id_kecamatan','$id_kriteria','$n_lakalantas')");
+					mysqli_query($conn,"insert into tbl_lakalantas(id_lalulintas,id_kriteria,nilai) values('$id_lalulintas','$id_kriteria','$n_lakalantas')");
 				}else{
-					mysqli_query($conn,"UPDATE tbl_lakalantas set nilai='$n_lakalantas' WHERE id_kriteria='$id_kriteria' AND id_kecamatan='$id_kecamatan'");
+					mysqli_query($conn,"UPDATE tbl_lakalantas set nilai='$n_lakalantas' WHERE id_kriteria='$id_kriteria' AND id_lalulintas='$id_lalulintas'");
 				}//keputusan cek row
 
 			}//keputusan cek keterangan
@@ -53,21 +39,24 @@ if (isset($_GET['aksi'])) {
 		}else{
 
 		}//end keputusan status
-		header("location:verifikasi");
+		header("location:verifikasi-lakalantas");
 
 	}elseif($_GET['aksi']=="hapus") {
 		$id_pengaduan=$_GET['id_pengaduan'];
-		$pilih = mysqli_query($conn,"select * from tbl_pengaduan where id_pengaduan='$id_pengaduan'");
+		$pilih = mysqli_query($conn,"select * from tbl_pengaduan_lakalantas where id_pengaduan='$id_pengaduan'");
 		$data = mysqli_fetch_array($pilih);
 		$foto = $data['foto'];
 		unlink('../assets/foto/'.$foto);
-		mysqli_query($conn,"delete from tbl_pengaduan where id_pengaduan='$id_pengaduan'");
-		header("location:verifikasi");
+		mysqli_query($conn,"delete from tbl_pengaduan_lakalantas where id_pengaduan='$id_pengaduan'");
+		header("location:verifikasi-lakalantas");
 	}
 }
 
 include "header.php";
 ?>
+
+<section id="hero-navbar">
+</section>
 
 <main id="main">
 	<section id="contact" class="contact">
@@ -76,7 +65,7 @@ include "header.php";
 			<ol class="breadcrumb" style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
 				<li><span class="fa fa-check-square-o" style="font-size: 30px;"></span>&emsp;</li>
 				<li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Verifikasi</li>
-				<li class="breadcrumb-item active" aria-current="page" style="padding-top:5px;">Data Verifikasi</li>
+				<li class="breadcrumb-item active" aria-current="page" style="padding-top:5px;">Data Verifikasi Lakalantas</li>
 			</ol>
 			
 			<div class="panel panel-container" style="padding: 50px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
@@ -85,7 +74,7 @@ include "header.php";
 
 					<?php 
 					$per_hal=10;
-					$jumlah_record=mysqli_query($conn,"SELECT * from tbl_pengaduan");
+					$jumlah_record=mysqli_query($conn,"SELECT * from tbl_pengaduan_lakalantas");
 					$jum=mysqli_num_rows($jumlah_record);
 					$halaman=ceil($jum / $per_hal);
 					$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -123,9 +112,9 @@ include "header.php";
 							<?php 
 							if(isset($_GET['cari'])){
 								$cari=$_GET['cari'];
-								$brg=mysqli_query($conn,"SELECT * FROM tbl_pengaduan a, tbl_akun b, tbl_kriteria c, tbl_kecamatan d where a.id_akun=b.id_akun AND a.id_kriteria=c.id_kriteria AND a.id_kecamatan=d.id_kecamatan AND c.nama_kriteria like '$cari'");
+								$brg=mysqli_query($conn,"SELECT * FROM tbl_pengaduan_lakalantas a, tbl_akun b, tbl_kriteria c, tbl_lalulintas d where a.id_akun=b.id_akun AND a.id_kriteria=c.id_kriteria AND a.id_lalulintas=d.id_lalulintas AND c.nama_kriteria like '$cari'");
 							}else{
-								$brg=mysqli_query($conn,"SELECT * FROM tbl_pengaduan a, tbl_akun b, tbl_kriteria c, tbl_kecamatan d where a.id_akun=b.id_akun AND a.id_kriteria=c.id_kriteria AND a.id_kecamatan=d.id_kecamatan ORDER BY a.id_pengaduan asc limit $start, $per_hal");
+								$brg=mysqli_query($conn,"SELECT * FROM tbl_pengaduan_lakalantas a, tbl_akun b, tbl_kriteria c, tbl_lalulintas d where a.id_akun=b.id_akun AND a.id_kriteria=c.id_kriteria AND a.id_lalulintas=d.id_lalulintas ORDER BY a.id_pengaduan asc limit $start, $per_hal");
 							}
 							$no=1;
 							while($b=mysqli_fetch_array($brg)){
@@ -140,7 +129,7 @@ include "header.php";
 									
 									
 									<td class="text-center">
-										<a href="verifikasi-det?id_pengaduan=<?php echo $b['id_pengaduan']; ?>" class="btn btn-dark"><span class="fa fa-eye"></span></a>
+										<a href="verifikasi-lakalantas-det?id_pengaduan=<?php echo $b['id_pengaduan']; ?>" class="btn btn-dark"><span class="fa fa-eye"></span></a>
 
 										<?php if ($b['status']=='Valid') {
 										}else{ ?>
@@ -161,7 +150,7 @@ include "header.php";
 												<h5 class="modal-title" id="exampleModalLabel">Verifikasi</h5>
 												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
-											<form action="verifikasi?aksi=verifikasi" method="post" enctype="multipart/form-data">
+											<form action="verifikasi-lakalantas?aksi=verifikasi" method="post" enctype="multipart/form-data">
 												<div class="modal-body p-4">
 													<input type="hidden" name="id_pengaduan" value="<?php echo $b['id_pengaduan'] ?>">
 

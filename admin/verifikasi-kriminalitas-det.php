@@ -2,6 +2,9 @@
 include "header.php";
 ?>
 
+<section id="hero-navbar">
+</section>
+
 <main id="main">
 	<section id="contact" class="contact">
 		<div class="container">
@@ -9,7 +12,7 @@ include "header.php";
 			<ol class="breadcrumb" style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
 				<li><span class="fa fa-check-square-o" style="font-size: 30px;"></span>&emsp;</li>
 				<li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Verifikasi</li>
-				<li class="breadcrumb-item active" aria-current="page" style="padding-top:5px;">Detai Verifikasi</li>
+				<li class="breadcrumb-item active" aria-current="page" style="padding-top:5px;">Detail Verifikasi Kriminalitas</li>
 			</ol>
 			
 			<div class="panel panel-container" style="padding: 50px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
@@ -18,7 +21,7 @@ include "header.php";
 					<table class="table">
 
 						<?php
-						$data=mysqli_query($conn,"SELECT * FROM tbl_pengaduan a, tbl_akun b, tbl_kriteria c, tbl_kecamatan d where a.id_akun=b.id_akun AND a.id_kriteria=c.id_kriteria AND a.id_kecamatan=d.id_kecamatan AND a.id_pengaduan='$_GET[id_pengaduan]'");
+						$data=mysqli_query($conn,"SELECT * FROM tbl_pengaduan_kriminalitas a, tbl_akun b, tbl_kriteria c, tbl_kecamatan d where a.id_akun=b.id_akun AND a.id_kriteria=c.id_kriteria AND a.id_kecamatan=d.id_kecamatan AND a.id_pengaduan='$_GET[id_pengaduan]'");
 						$b=mysqli_fetch_array($data); ?>
 						<tr>
 							<td><b>DATA PENGADUAN</b></td>
@@ -63,7 +66,7 @@ include "header.php";
 						</tr>				
 					</table>
 
-					<a href="verifikasi" class="btn btn-success">Kembali</a>
+					<a href="verifikasi-kriminalitas" class="btn btn-success">Kembali</a>
 				</div>
 			</div>
 
@@ -81,7 +84,7 @@ include "header.php";
 			</div>
 			<div class="modal-body p-4">
 				<?php
-				$query = mysqli_query($conn, "SELECT * FROM tbl_pengaduan WHERE id_pengaduan='$b[id_pengaduan]'");
+				$query = mysqli_query($conn, "SELECT * FROM tbl_pengaduan_kriminalitas WHERE id_pengaduan='$b[id_pengaduan]'");
 				$a = mysqli_fetch_array($query);
 				?>
 

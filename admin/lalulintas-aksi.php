@@ -4,16 +4,18 @@ include 'header.php';
 if (isset($_GET['aksi'])) {
 	if ($_GET['aksi'] == "tambah") {
 		?>
+		
 		<section id="hero-navbar">
 		</section>
+
 		<main id="main">
 			<section id="contact" class="contact">
 				<div class="container">
 
 					<ol class="breadcrumb"
 						style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
-						<li><span class="fa fa-newspaper-o" style="font-size: 30px;"></span>&emsp;</li>
-						<li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Kecamatan</li>
+						<li><span class="fa fa-lastfm" style="font-size: 30px;"></span>&emsp;</li>
+						<li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Lalulintas</li>
 						<li class="breadcrumb-item active" aria-current="page" style="padding-top:5px;">Tambah Data</li>
 					</ol>
 
@@ -21,15 +23,30 @@ if (isset($_GET['aksi'])) {
 						style="padding: 50px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
 						<div class="bootstrap-table">
 
+							<?php
+							$carikode = mysqli_query($conn, "select max(id_lalulintas) from tbl_lalulintas");
+							$datakode = mysqli_fetch_array($carikode);
+							if ($datakode) {
+								$nilaikode = substr($datakode[0], 2);
+								$kode = (int) $nilaikode;
+								$kode = $kode + 1;
+								$kode_otomatis = "LS" . str_pad($kode, 2, "0", STR_PAD_LEFT);
+							} else {
+								$kode_otomatis = "LS01";
+							}
+							?>
 
 							<div class="modal-body">
-								<form action="kecamatan-proses?proses=proses-tambah" method="post"
+								<form action="lalulintas-proses?proses=proses-tambah" method="post"
 									enctype="multipart/form-data">
+
+									<input name="id_lalulintas" type="hidden" value="<?php echo $kode_otomatis ?>"
+										class="form-control">
 
 
 									<div class="form-group">
-										<label>Kecamatan</label>
-										<input name="nama_kecamatan" type="text" class="form-control" placeholder="kecamatan"
+										<label>Lalulintas</label>
+										<input name="nama_lalulintas" type="text" class="form-control" placeholder="lalulintas"
 											autocomplete="off" required onsubmit="this.setCustomValidity('')">
 									</div>
 									<br>
@@ -49,7 +66,7 @@ if (isset($_GET['aksi'])) {
 									<hr>
 
 									<div class="modal-footer">
-										<a href="kecamatan" class="btn btn-primary" type="button"
+										<a href="lalulintas" class="btn btn-primary" type="button"
 											data-dismiss="modal">Batal</a>&nbsp;
 										<input type="submit" class="btn btn-success" name="simpan" value="Simpan">
 									</div>
@@ -61,6 +78,8 @@ if (isset($_GET['aksi'])) {
 				</div>
 			</section>
 		</main>
+
+
 
 		<?php
 	} elseif ($_GET['aksi'] == "ubah") {
@@ -75,8 +94,8 @@ if (isset($_GET['aksi'])) {
 
 					<ol class="breadcrumb"
 						style="padding: 20px; box-shadow: 2px 2px 10px #888888; background-color: whitesmoke;">
-						<li><span class="fa fa-newspaper-o" style="font-size: 30px;"></span>&emsp;</li>
-						<li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Kecamatan</li>
+						<li><span class="fa fa-lastfm" style="font-size: 30px;"></span>&emsp;</li>
+						<li class="breadcrumb-item" aria-current="page" style="padding-top:5px;">Lalulintas</li>
 						<li class="breadcrumb-item active" aria-current="page" style="padding-top:5px;">Ubah Data</li>
 					</ol>
 
@@ -86,20 +105,20 @@ if (isset($_GET['aksi'])) {
 						<div class="bootstrap-table">
 
 							<?php
-							$id_kecamatan = $_GET['id_kecamatan'];
-							$det = mysqli_query($conn, "SELECT * FROM tbl_kecamatan where id_kecamatan='$id_kecamatan'");
+							$id_lalulintas = $_GET['id_lalulintas'];
+							$det = mysqli_query($conn, "SELECT * FROM tbl_lalulintas where id_lalulintas='$id_lalulintas'");
 							while ($d = mysqli_fetch_array($det)) {
 								?>
-								<form action="kecamatan-proses?proses=proses-ubah" method="post" enctype="multipart/form-data">
+								<form action="lalulintas-proses?proses=proses-ubah" method="post" enctype="multipart/form-data">
 									<table class="table">
-										<input type="hidden" readonly class="form-control" name="id_kecamatan"
-											value="<?php echo $d['id_kecamatan'] ?>"></td>
+										<input type="hidden" readonly class="form-control" name="id_lalulintas"
+											value="<?php echo $d['id_lalulintas'] ?>"></td>
 
 										<tr>
-											<td>Kecamatan</td>
-											<td><input name="nama_kecamatan" type="text" value="<?php echo $d['nama_kecamatan'] ?>"
-													class="form-control" autocomplete="off" required
-													onsubmit="this.setCustomValidity('')"></td>
+											<td>lalulintas</td>
+											<td><input name="nama_lalulintas" type="text"
+													value="<?php echo $d['nama_lalulintas'] ?>" class="form-control"
+													autocomplete="off" required onsubmit="this.setCustomValidity('')"></td>
 										</tr>
 
 										<tr>
@@ -118,7 +137,7 @@ if (isset($_GET['aksi'])) {
 
 									</table>
 									<div class="modal-footer">
-										<a href="kecamatan" class="btn btn-primary" type="button"
+										<a href="lalulintas" class="btn btn-primary" type="button"
 											data-dismiss="modal">Batal</a>&nbsp;
 										<input type="submit" class="btn btn-success" value="Ubah">
 									</div>
