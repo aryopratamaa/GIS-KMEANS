@@ -41,10 +41,6 @@ include 'header.php'
 
 </section><!-- End Hero -->
 
-
-
-
-
 <main id="main">
 
     <!-- ======= Berita Section ======= -->
@@ -147,7 +143,6 @@ include 'header.php'
     </section><!-- End Berita Section -->
 
 </main>
-
 
 
 <style>
