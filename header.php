@@ -32,6 +32,8 @@ include "assets/conn/config.php";
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css-login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link href="assets/css/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -74,7 +76,8 @@ include "assets/conn/config.php";
           <li><a class="nav-link scrollto" href="tkt-kriminalitas">Kriminalitas</a></li>
           <li><a class="nav-link scrollto" href="tkt-lakalantas">Lakalantas</a></li>
           <li><a class="nav-link scrollto" href="login">Pengaduan</a></li>
-          <li><a class="getstarted" href="login">Login</a></li>
+          <li><a class="getstarted" href="login"><span
+                class="fa fa-user"></span>&emsp;Login</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

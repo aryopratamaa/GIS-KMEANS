@@ -33,6 +33,8 @@ include "../assets/conn/config.php";
   <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../assets/css-login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link href="../assets/css/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
@@ -95,7 +97,7 @@ include "../assets/conn/config.php";
           $d = mysqli_fetch_array($det);
           ?>
           <li class="dropdown"><a href="#" class="getstarted"><span
-                class="fa fa-user"></span> Hy,
+                class="fa fa-user"></span> &emsp;Hy,
               <?php echo $d['nama_lengkap'] ?> <i class="bi bi-chevron-down dropdown-indicator"></i>
             </a>
             <ul>
