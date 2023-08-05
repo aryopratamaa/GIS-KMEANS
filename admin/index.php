@@ -102,100 +102,100 @@ include 'header.php';
 </style>
 
 <!-- ======= Berita Section ======= -->
-<section id="berita" class="berita">
-  <div class="container">
-    <div class="section-title" data-aos="fade-up">
-      <h2>Artikel Singkat</h2>
-      <p>Berita Terbaru</p>
-    </div>
-    <div class="row" data-aos="fade-up">
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <?php
-          $data = mysqli_query($conn, "SELECT * FROM tbl_berita ORDER BY id_berita DESC");
-          $images = mysqli_fetch_all($data, MYSQLI_ASSOC);
-          $active = true;
-
-          foreach (array_chunk($images, 4) as $slide) {
-            $carouselItemClass = $active ? 'carousel-item active' : 'carousel-item';
-            ?>
-            <div class="<?php echo $carouselItemClass; ?>">
-              <div class="d-flex justify-content-between">
-                <?php foreach ($slide as $image) { ?>
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $image['id_berita']; ?>">
-                    <img class="img-fluid" onerror="this.src='../assets/img/images-not.png'"
-                      src="../assets/foto/<?php echo $image['foto']; ?>" alt="Slide <?php echo $image['id_berita']; ?>">
-                  </a>
-                <?php } ?>
-              </div>
-            </div>
-
-            <!-- Modal untuk setiap gambar -->
-            <?php foreach ($slide as $image) { ?>
-              <div class="modal fade" id="exampleModal<?php echo $image['id_berita']; ?>" tabindex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Artikel Berita</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-4">
-                      <?php
-                      $det = mysqli_query($conn, "SELECT * FROM tbl_berita WHERE id_berita='$image[id_berita]'");
-                      $d = mysqli_fetch_array($det);
-                      ?>
-                      <table class="table">
-                        <tr>
-                          <td>Judul</td>
-                          <td>
-                            <?php echo $d['judul']; ?>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tanggal</td>
-                          <td>
-                            <?php echo $d['tgl_berita']; ?>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Keterangan</td>
-                          <td align="justify">
-                            <?php echo $d['keterangan']; ?>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <?php } ?>
-
-            <?php
-            $active = false;
-          }
-          ?>
+<div class="berita">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Artikel Singkat</h2>
+            <p>Berita Terbaru</p>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <?php
+                $data = mysqli_query($conn, "SELECT * FROM tbl_berita ORDER BY id_berita DESC");
+                $images = mysqli_fetch_all($data, MYSQLI_ASSOC);
+                $active = true;
+
+                foreach (array_chunk($images, 4) as $slide) {
+                    $carouselItemClass = $active ? 'carousel-item active' : 'carousel-item';
+                    ?>
+                    <div class="<?php echo $carouselItemClass; ?>">
+                        <div class="d-flex justify-content-between">
+                            <?php foreach ($slide as $image) { ?>
+                                <a href="#" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal<?php echo $image['id_berita']; ?>">
+                                    <img class="img-fluid" onerror="this.src='../assets/img/images-not.png'"
+                                        src="../assets/foto/<?php echo $image['foto']; ?>"
+                                        alt="Slide <?php echo $image['id_berita']; ?>">
+                                </a>
+                            <?php } ?>
+                        </div>
+                    </div>
+
+                    <!-- Modal untuk setiap gambar -->
+                    <?php foreach ($slide as $image) { ?>
+                        <div class="modal fade" id="exampleModal<?php echo $image['id_berita']; ?>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Artikel Berita</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-4">
+                                        <?php
+                                        $det = mysqli_query($conn, "SELECT * FROM tbl_berita WHERE id_berita='$image[id_berita]'");
+                                        $d = mysqli_fetch_array($det);
+                                        ?>
+                                        <table class="table">
+                                            <tr>
+                                                <td>Judul</td>
+                                                <td>
+                                                    <?php echo $d['judul']; ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tanggal</td>
+                                                <td>
+                                                    <?php echo $d['tgl_berita']; ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Keterangan</td>
+                                                <td align="justify">
+                                                    <?php echo $d['keterangan']; ?>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php
+                    $active = false;
+                }
+                ?>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
-
-  </div>
-
-  </div>
-</section><!-- End Berita Section -->
+</div>
+<!-- End Berita Section -->
 
 <?php
 // Query untuk mengambil data kecamatan dari database
