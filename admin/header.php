@@ -100,6 +100,7 @@ include "../assets/conn/config.php";
               <li><a href="lakalantas">Lakalantas</a></li>
               <li><a href="tkt-kriminalitas">Tingkat Kriminalitas</a></li>
               <li><a href="tkt-lakalantas">Tingkat Lakalantas</a></li>
+              <li><a class="nav-link" href="cari-maps">Cari Titik</a></li>
             </ul>
           </li>
           <li class="dropdown"><a href="#"><span>Analisa Metode</span> <i
