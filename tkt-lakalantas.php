@@ -92,9 +92,9 @@ mysqli_close($conn);
 
 <script type="text/javascript">
     var mapOptions = {
-        center: [3.1617, 99.5265],
+        center: [3.2345, 99.5265],
         zoom: 11
-    }
+    };
 
     var map = new L.map('mapid', mapOptions);
 
