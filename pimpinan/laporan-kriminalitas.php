@@ -157,7 +157,7 @@ include "../assets/conn/config.php";
 
 
 					</tr>
-					<?php
+				<?php
 				}
 				?>
 
