@@ -209,7 +209,7 @@ include "header.php";
                         <?php
                         for ($x = 1; $x <= $halaman; $x++) {
                             ?>
-                            <li><a href="?page=<?php echo $x ?>" class="btn btn-primary"><?php echo $x ?></a></li>
+                            <li><a href="?page=<?php echo $x ?>" class="btn btn-primary"><?php echo $x ?></a></li>&nbsp;
                             <?php
                         }
                         ?>
