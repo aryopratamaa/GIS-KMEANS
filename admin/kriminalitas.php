@@ -219,12 +219,14 @@ include "header.php";
 										<a href="kriminalitas-det?id_kecamatan=<?php echo $a['id_kecamatan']; ?>"
 											class="btn btn-primary"><span class="fa fa-eye"></span></a>
 
-										<a href="kriminalitas-proses?id_kecamatan=<?php echo $a['id_kecamatan']; ?>&proses=proses-hapus"
+
+										<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??'))
+										{ location.href='kriminalitas-proses?id_kecamatan=<?php echo $a['id_kecamatan']; ?>&proses=proses-hapus' }"
 											class="btn btn-success"><span class="fa fa-trash"></span></a>
 									</td>
 								<?php } ?>
 								</tr>
-							<?php
+								<?php
 							}
 							?>
 

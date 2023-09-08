@@ -45,6 +45,13 @@ if (isset($_GET['proses'])) {
 	} elseif ($_GET['proses'] == "proses-hapus") {
 		$id_kecamatan = $_GET['id_kecamatan'];
 		mysqli_query($conn, "delete from tbl_kriminalitas where id_kecamatan='$id_kecamatan'");
+
+		mysqli_query($conn, "delete from tbl_cluster_kriminalitas where id_kecamatan='$id_kecamatan'");
+
+		mysqli_query($conn, "update tbl_kecamatan set 
+		c1='0', c2='0', c3='0', cluster_kriminalitas='?', ket_kriminalitas='?'  where id_kecamatan='$id_kecamatan'");
+		header("location:kecamatan");
+
 		header("location:kriminalitas");
 
 	} elseif ($_GET['proses'] == "proses-cari") {

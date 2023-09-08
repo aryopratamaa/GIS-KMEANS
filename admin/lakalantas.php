@@ -217,8 +217,8 @@ include "header.php";
 									<td class="text-center">
 										<a href="lakalantas-det?id_lalulintas=<?php echo $a['id_lalulintas']; ?>"
 											class="btn btn-primary"><span class="fa fa-eye"></span></a>
-
-										<a href="lakalantas-proses?id_lalulintas=<?php echo $a['id_lalulintas']; ?>&proses=proses-hapus"
+											<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??'))
+										{ location.href='lakalantas-proses?id_lalulintas=<?php echo $a['id_lalulintas']; ?>&proses=proses-hapus' }"
 											class="btn btn-success"><span class="fa fa-trash"></span></a>
 									</td>
 								<?php } ?>

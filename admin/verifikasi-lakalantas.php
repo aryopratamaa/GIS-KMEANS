@@ -136,7 +136,7 @@ include "header.php";
 											<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $b['id_pengaduan']; ?>" class="btn btn-primary"><span class="fa fa-check"></span></a>
 										<?php } ?>
 
-										<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='verifikasi?id_pengaduan=<?php echo $b['id_pengaduan']; ?>&aksi=hapus' }" class="btn btn-success"><span class="fa fa-trash"></span></a>
+										<a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='verifikasi-lakalantas?id_pengaduan=<?php echo $b['id_pengaduan']; ?>&aksi=hapus' }" class="btn btn-success"><span class="fa fa-trash"></span></a>
 									</td>
 								</tr>
 

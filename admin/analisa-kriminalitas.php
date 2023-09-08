@@ -86,7 +86,6 @@ include "header.php";
 									$res = mysqli_fetch_array($qu);
 
 									if (empty($res['id_kecamatan'])) {
-
 									} else {
 
 										echo "
@@ -192,7 +191,6 @@ include "header.php";
 									$res = mysqli_fetch_array($qu);
 
 									if (empty($res['id_kecamatan'])) {
-
 									} else {
 
 										echo "
@@ -252,8 +250,6 @@ include "header.php";
 											// Data belum ada, lakukan operasi INSERT untuk memasukkan data baru ke dalam tabel
 											$query = mysqli_query($conn, "INSERT INTO tbl_cluster_kriminalitas (id_kecamatan, c1, c2, c3, group_cluster, iterasi) VALUES ('$kode','$akr1', '$akr2', '$akr3', '$nama_terkecil', '1')");
 										}
-
-
 									} //end cek data
 									?>
 
@@ -305,7 +301,6 @@ include "header.php";
 
 									echo "<div style='margin-top:5px; box-shadow: 2px 2px 4px #888888;' class='alert alert-primary' role='alert'><span class='fa fa-toggle-on'></span>&nbsp; <b>Iterasi Ke-$i : <br><hr>Cluster Baru [$cluster_lama] == Cluster Lama [$cluster_baru] <br>  Keterangan : $ket</b></div>";
 								}
-
 							} else {
 								echo "Error in fetching cluster data: " . mysqli_error($conn);
 							}
@@ -382,7 +377,6 @@ include "header.php";
 										$res = mysqli_fetch_array($qu);
 
 										if (empty($res['id_kecamatan'])) {
-
 										} else {
 
 											echo "
@@ -460,7 +454,6 @@ include "header.php";
 
 											//ambil setiap keterangan cluster yang muncul
 											mysqli_query($conn, "UPDATE tbl_kecamatan SET ket_kriminalitas= '$keterangan' WHERE id_kecamatan = '$kode'");
-
 										} //end cek data
 										?>
 
@@ -491,7 +484,8 @@ include "header.php";
 
 
 
-					<?php } //end cek jumlah max iterasi ?>
+					<?php } //end cek jumlah max iterasi 
+					?>
 
 				</div>
 			</div>

@@ -157,7 +157,7 @@ include "header.php";
                                                 class="btn btn-primary"><span class="fa fa-check"></span></a>
                                         <?php } ?>
 
-                                        <a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='verifikasi?id_pengaduan=<?php echo $b['id_pengaduan']; ?>&aksi=hapus' }"
+                                        <a onclick="if(confirm('Apakah anda yakin ingin menghapus data ini ??')){ location.href='verifikasi-kriminalitas?id_pengaduan=<?php echo $b['id_pengaduan']; ?>&aksi=hapus' }"
                                             class="btn btn-success"><span class="fa fa-trash"></span></a>
                                     </td>
                                 </tr>

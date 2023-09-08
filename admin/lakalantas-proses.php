@@ -2,8 +2,8 @@
 include '../assets/conn/config.php';
 if (isset($_GET['proses'])) {
 	if ($_GET['proses'] == "proses-tambah") {
-		$id_kecamatan = $_POST['id_kecamatan'];
-		$data = mysqli_query($conn, "SELECT * FROM tbl_lakalantas WHERE id_kecamatan='$id_kecamatan'");
+		$id_lalulintas = $_POST['id_lalulintas'];
+		$data = mysqli_query($conn, "SELECT * FROM tbl_lakalantas WHERE id_lalulintas='$id_lalulintas'");
 		$a = mysqli_num_rows($data);
 
 		if ($a > 0) {
@@ -15,8 +15,8 @@ if (isset($_GET['proses'])) {
 				$idK = $baris['id_kriteria'];
 				$idS = $_POST[$idK];
 
-				$query1 = "INSERT INTO tbl_lakalantas(id_kecamatan, id_kriteria, nilai) 
-				VALUES ('" . $id_kecamatan . "','" . $idK . "','" . $idS . "')";
+				$query1 = "INSERT INTO tbl_lakalantas(id_lalulintas, id_kriteria, nilai) 
+				VALUES ('" . $id_lalulintas . "','" . $idK . "','" . $idS . "')";
 				$result1 = mysqli_query($conn, $query1);
 			}
 
@@ -24,9 +24,9 @@ if (isset($_GET['proses'])) {
 		}
 
 	} elseif ($_GET['proses'] == "proses-ubah") {
-		$id_kecamatan = $_POST['id_kecamatan'];
+		$id_lalulintas = $_POST['id_lalulintas'];
 
-		$query2 = "DELETE FROM tbl_lakalantas WHERE id_kecamatan='" . $_POST['id_kecamatan'] . "'";
+		$query2 = "DELETE FROM tbl_lakalantas WHERE id_lalulintas='" . $_POST['id_lalulintas'] . "'";
 		$result2 = mysqli_query($conn, $query2);
 
 
@@ -35,17 +35,21 @@ if (isset($_GET['proses'])) {
 			$idK = $baris['id_kriteria'];
 			$idS = $_POST[$idK];
 
-			$query1 = "INSERT INTO tbl_lakalantas(id_kecamatan, id_kriteria, nilai) 
-				VALUES ('" . $id_kecamatan . "','" . $idK . "','" . $idS . "')";
+			$query1 = "INSERT INTO tbl_lakalantas(id_lalulintas, id_kriteria, nilai) 
+				VALUES ('" . $id_lalulintas . "','" . $idK . "','" . $idS . "')";
 			$result1 = mysqli_query($conn, $query1);
 		}
 
 		header("location:lakalantas");
 
 	} elseif ($_GET['proses'] == "proses-hapus") {
-		$id_kecamatan = $_GET['id_kecamatan'];
-		mysqli_query($conn, "delete from tbl_lakalantas where id_kecamatan='$id_kecamatan'");
+		$id_lalulintas = $_GET['id_lalulintas'];
+		mysqli_query($conn, "delete from tbl_lakalantas where id_lalulintas='$id_lalulintas'");
 		header("location:lakalantas");
+
+		mysqli_query($conn,"update tbl_lalulintas set 
+		c1='0', c2='0', c3='0', cluster_lakalantas='?', ket_lakalantas='?'  where id_lalulintas='$id_lalulintas'");
+		header("location:lalulintas");
 
 	} elseif ($_GET['proses'] == "proses-cari") {
 		$cari = $_POST['cari'];
